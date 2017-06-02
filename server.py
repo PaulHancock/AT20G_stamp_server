@@ -28,7 +28,6 @@ def cut_image(image, ra, dec, radius, outfile=None):
     :param radius: radius in arcmin
     :param outfile: the output filename
     """
-
     position = SkyCoord(ra*u.degree, dec*u.degree, frame='icrs')
     hdu = fits.open(image)
     wcs = WCS(hdu[0].header)
@@ -70,6 +69,12 @@ class StringGenerator(object):
 
     @cherrypy.expose
     def cutout(self, image, ra, dec, radius):
+        # TODO:
+        # parse ra/dec to accept various formats
+        # check ra/dec is within the area covered
+        # put min/max limits on radius and clip where required
+        # remove the need to supply image name and calculate it automagically
+        # instead of just d/l the file, go to a new page with a link to the download
         im = cut_image(image, 20, -30, 15, "temp/out.fits")
         path = os.path.join(absDir, "temp/out.fits")
         return static.serve_file(path, "application/x-download",
