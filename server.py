@@ -47,7 +47,16 @@ class StringGenerator(object):
         return ''.join(random.sample(string.hexdigits, int(length)))
 
     @cherrypy.expose
-    def cutout(self, image, ra, dec, radius):
+    def cutout(self, pos, size, equinox, imagetypes, **params):
+        txt = "pos {0}\n".format(pos)
+        txt += "size {0}\n".format(size)
+        txt += "equinox {0}\n".format(equinox)
+        txt += "imagetypes {0}\n".format(imagetypes)
+        txt += "extra options {0}\n".format(params)
+        return txt
+
+    @cherrypy.expose
+    def cutout2(self, image, ra, dec, radius):
         # TODO:
         # parse ra/dec to accept various formats
         # check ra/dec is within the area covered

@@ -86,7 +86,7 @@
 </nav>
 
 <article class="article">
-<form method="post" action="#" enctype="application/x-www-form-urlencoded">
+<form method="POST" action="cutout">
     <div class="tooltip">RA/Dec:
         <span class="tooltiptext">Free format</span>
     </div> <input type="text" name="pos" value="3:15:0 -1d4m14.5s" size="30" maxlength="30" />
@@ -99,14 +99,14 @@
     <p>Image Type: <label><input type="checkbox" name="imagetypes" value="FITS" checked="checked" />FITS</label>
                 <label><input type="checkbox" name="imagetypes" value="JPEG" />JPEG</label></p>
     <p>Extra Options:<br/>
-        <label><input type="checkbox" name="extra" value="dorms" />Calculate RMS</label><br/>
-        <label><input type="checkbox" name="extra" value="at20gcat"/>Catalogue of AT20G sources</label><br/>
-        <label><input type="checkbox" name="extra" value="overlay"/>Overlay AT20G sources</label><br/>
-        <label><input type="checkbox" name="extra" value="scancat"/>Catalogue of scanning survey sources</label><br/>
-        <label><input type="checkbox" name="extra" value="scanning"/>Overlay scanning survey sources</label><br/>
-        <label><input type="checkbox" name="extra" value="other"/>Some other thing</label>
+        <label><input type="checkbox" name="dorms" />Calculate RMS</label><br/>
+        <label><input type="checkbox" name="at20gcat"/>Catalogue of AT20G sources</label><br/>
+        <label><input type="checkbox" name="overlay"/>Overlay AT20G sources</label><br/>
+        <label><input type="checkbox" name="scancat"/>Catalogue of scanning survey sources</label><br/>
+        <label><input type="checkbox" name="scanning"/>Overlay scanning survey sources</label><br/>
+        <label><input type="checkbox" name="other"/>Some other thing</label>
     </p>
-    <p><input type="submit" name="action" value="Get Image" /></p>
+    <p><input type="submit" value="Get Image" /></p>
 </form>
     <h4>Acknowledgement:</h4>
     <p>If you use data from this service please cite the AT20G paper (<a href="http://adsabs.harvard.edu/abs/2010MNRAS.402.2403M">Murphy et al. 2010</a>),
