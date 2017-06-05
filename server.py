@@ -41,27 +41,6 @@ def cut_image(image, ra, dec, radius, outfile=None):
 
 
 class StringGenerator(object):
-    @cherrypy.expose
-    def index(self):
-        return """<html>
-          <head></head>
-          <body>
-            <form method="get" action="generate">
-              <input type="text" value="8" name="length" />
-              <button type="submit">Give it now!</button>
-            </form>
-            <form method="get" action="cutout">
-              <p>Filename:</p>
-                <input type="text" value="AT20G_trimmed/DEC-15-30_RA01.fits" name="image"/>
-              <p>RA/Dec (dec degrees)</p>
-                <input type="float" value=20 name="ra"/>
-                <input type="float" value=-25 name="dec"/>
-              <p>Radius (arcmin):</p>
-                <input type="radius" value=15 name="radius"/>
-              <button type="submit"> GO! </button>
-            </form>
-          </body>
-        </html>"""
 
     @cherrypy.expose
     def generate(self, length=8):
@@ -82,5 +61,5 @@ class StringGenerator(object):
 
 
 if __name__ == '__main__':
-    cherrypy.quickstart(StringGenerator())
+    cherrypy.quickstart(StringGenerator(),'/', config="server.conf")
 
