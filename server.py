@@ -47,12 +47,12 @@ class StringGenerator(object):
         return ''.join(random.sample(string.hexdigits, int(length)))
 
     @cherrypy.expose
-    def cutout(self, pos, size, equinox, imagetypes, **params):
+    def cutout(self, pos, size, equinox, imagetypes, extras):
         txt = "pos {0}\n".format(pos)
         txt += "size {0}\n".format(size)
         txt += "equinox {0}\n".format(equinox)
         txt += "imagetypes {0}\n".format(imagetypes)
-        txt += "extra options {0}\n".format(params)
+        txt += "extra options {0}\n".format(extras)
         return txt
 
     @cherrypy.expose
