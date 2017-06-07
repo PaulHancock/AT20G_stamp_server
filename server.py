@@ -31,7 +31,7 @@ def cut_image(image, ra, dec, radius, outfile=None):
     position = SkyCoord(ra*u.degree, dec*u.degree, frame='icrs')
     hdu = fits.open(image)
     wcs = WCS(hdu[0].header)
-    size = u.Quantity((radius, radius), u.arcmin)
+    size = u.Quantity((radius, radius), u.degree)
     cutout = Cutout2D(hdu[0].data, position, size, wcs=wcs)
     hdu[0].header.update(dict(cutout.wcs.to_header().iteritems()))
     hdu[0].data = cutout.data
@@ -47,7 +47,7 @@ class StringGenerator(object):
         return ''.join(random.sample(string.hexdigits, int(length)))
 
     @cherrypy.expose
-    def cutout(self, pos, size, equinox, imagetypes, extras):
+    def cutout2(self, pos, size, equinox, imagetypes, extras):
         txt = "pos {0}\n".format(pos)
         txt += "size {0}\n".format(size)
         txt += "equinox {0}\n".format(equinox)
@@ -56,19 +56,25 @@ class StringGenerator(object):
         return txt
 
     @cherrypy.expose
-    def cutout2(self, image, ra, dec, radius):
+    def cutout(self, pos, size, equinox, imagetypes, extras=None):
         # TODO:
         # parse ra/dec to accept various formats
         # check ra/dec is within the area covered
         # put min/max limits on radius and clip where required
         # remove the need to supply image name and calculate it automagically
         # instead of just d/l the file, go to a new page with a link to the download
-        im = cut_image(image, 20, -30, 15, "temp/out.fits")
+        image = "images/DEC-15-30_RA02.fits"
+        ra, dec = map(float, pos.split())
+        size = float(size)
+        im = cut_image(image, ra, dec, size, "temp/out.fits")
         path = os.path.join(absDir, "temp/out.fits")
         return static.serve_file(path, "application/x-download",
                                  "attachment", os.path.basename(path))
 
+    @cherrypy.expose
+    def bibtex(self):
+        return "bibtex!"
 
 if __name__ == '__main__':
-    cherrypy.quickstart(StringGenerator(),'/', config="server.conf")
+    cherrypy.quickstart(StringGenerator(), '/', config="server.conf")
 
